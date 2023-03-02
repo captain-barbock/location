@@ -25,6 +25,12 @@ defmodule Location.Country do
     |> Enum.map(fn {_, val} -> val end)
   end
 
+  def webform_values() do
+    :ets.tab2list(@ets_table)
+    |> Enum.map(fn {_, entry} -> {entry.name, entry.alpha_2} end)
+    |> Enum.sort(fn {name_1, _}, {name_2, _} -> name_1 <= name_2 end)
+  end
+
   def search_country(search_phrase) do
     search_phrase = String.downcase(search_phrase)
 
