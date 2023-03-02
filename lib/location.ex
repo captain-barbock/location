@@ -1,5 +1,6 @@
 defmodule Location do
   require Logger
+  defdelegate country_webform_values(), to: Location.Country, as: :webform_values
   defdelegate get_country(alpha_2), to: Location.Country
   defdelegate search_country(alpha_2), to: Location.Country
   defdelegate get_subdivision(code), to: Location.Subdivision
