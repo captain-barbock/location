@@ -21,6 +21,15 @@ defmodule LocationTest do
       assert match.alpha_2 == "EE"
       assert match.name == "Estonia"
     end
+
+    test "can get a list of countries for webform (select)" do
+      countries = Location.country_webform_values()
+      countries_count = Enum.count(countries)
+      macao = Enum.fetch!(countries, 129) |> elem(0)
+
+      assert countries_count == 250
+      assert macao == "Macao"
+    end
   end
 
   describe "subdivision" do
