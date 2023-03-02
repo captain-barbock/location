@@ -23,6 +23,24 @@ defmodule Location.Subdivision do
     end)
   end
 
+  def webform_values(nil), do: []
+
+  def webform_values(alpha_2) do
+    if String.length(alpha_2) == 2 do
+      :ets.foldl(fn
+        {code, entry}, acc ->
+          if String.starts_with?(code, String.upcase(alpha_2)) do
+            [{entry.name, code} | acc]
+          else
+            acc
+          end
+      end, [], @ets_table)
+      |> Enum.sort(fn {name_1, _}, {name_2, _} -> name_1 <= name_2 end)
+    else
+      []
+    end
+  end
+
   def search_subdivision(search_phrase) do
     search_phrase = String.downcase(search_phrase)
 

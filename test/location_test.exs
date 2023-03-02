@@ -47,6 +47,25 @@ defmodule LocationTest do
       assert match.code == "EE-79"
       assert match.name == "Tartumaa"
     end
+
+    test "can filter subdivisions by country, case insensitive" do
+      divisions = Location.subdivision_webform_values("ch")
+      divisions_count = Enum.count(divisions)
+      zh_name = divisions |> Enum.take(-1) |> hd() |> elem(0)
+      ch_ag_code = divisions |> hd() |> elem(1)
+
+      assert divisions_count == 26
+      assert zh_name == "Zürich"
+      assert ch_ag_code == "CH-AG"
+    end
+
+    test "can manage edgecases of subdivision_webform_values function" do
+      divisions_1 = Location.subdivision_webform_values("Germany")
+      divisions_2 = Location.subdivision_webform_values(nil)
+
+      assert divisions_1 == []
+      assert divisions_2 == []
+    end
   end
 
   describe "city" do
