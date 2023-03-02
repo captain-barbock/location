@@ -3,6 +3,7 @@ defmodule Location do
   defdelegate country_webform_values(), to: Location.Country, as: :webform_values
   defdelegate get_country(alpha_2), to: Location.Country
   defdelegate search_country(alpha_2), to: Location.Country
+  defdelegate subdivision_webform_values(alpha_2), to: Location.Subdivision, as: :webform_values
   defdelegate get_subdivision(code), to: Location.Subdivision
   defdelegate search_subdivision(code), to: Location.Subdivision
   defdelegate get_city(code), to: Location.City
